@@ -1,0 +1,18 @@
+- development
+ - position_number: 10
+   sensor:
+     - 116542
+     - 0
+   leds:
+     - 116542
+     - 0
+     - 1
+ - position_number: 11
+   sensor:
+     - 116542
+     - 0
+   leds:
+     - 116542
+     - 0
+     - 1
+
