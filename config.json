@@ -1,0 +1,12 @@
+{
+  "standard": {
+    "position_number": 10,
+    "sensor": [114562, 0],
+    "leds": [114562, 0, 1]
+  },
+  "garage": {
+    "position_number": 11,
+    "sensor": [114562, 0],
+    "leds": [114562, 2, 3]
+  }
+}
