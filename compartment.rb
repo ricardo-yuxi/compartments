@@ -1,26 +1,19 @@
 require_relative 'data_source'
 
 class Compartment
-  def initialize(compartment_id, data_source)
-    @id = compartment_id
-    @data_source = data_source
+  DATA = {position_number: 10, sensor: 116542, leds: 126522}
+
+  attr_reader :data
+  def initialize
+    @data = DATA
   end
 
-  def method_missing(name)
-    super if !@data_source.respond_to?("get_#{name}_number")
-    serial = @data_source.send("get_#{name}_number", @id)
-    position = @data_source.send("get_#{name}_number", @id)
-    leds = @data_source.send("get_#{name}_number", @id)
-    result = "#{name.capitalize}: #{serial} #{position} #{leds}"
+  def to_s
+    "#{@data}"
   end
 end
 
-my_compartment = Compartment.new(11, DS.new)
-puts my_compartment.serial
-
-cmp = Compartment.new(1, DS.new)
-puts cmp.respond_to?(:serial)
-
+puts Compartment.new
 
 #module Compartment
 
@@ -33,19 +26,13 @@ puts cmp.respond_to?(:serial)
   #end
 #end
 
-class StandardCompartment
-  include Compartment
+#class StandardCompartment
+  #include Compartment
 
-  attr_accessor :serial, :position_number, :sensor, :leds
-  def initialize()
-    @config = StandardCompartment.config_from_template
-  end
-
-  def self.config_from_template
-    file = File.read 'config.json'
-    JSON.load(file, nil, symobolize_names: true)
-  end
-end
+  #attr_accessor :serial, :position_number, :sensor, :leds
+  #def initialize()
+  #end
+#end
 
 #class GarageCompartment
   #include Compartment
