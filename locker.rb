@@ -2,13 +2,12 @@ require 'awesome_print'
 
 class Compartment
 
-  attr_reader :position_number, :sensors, :indicators
+  attr_reader :position_number, :sensors, :indicators, :door
   def initialize(args={})
     @position_number = args[:position_number] || default_position
     @sensors = args[:sensor] || default_sensors
     @indicators = args[:indicators] || default_indicators
-    @back_door = args[:back_door] || default_back_door
-    @front_door = args[:front_door] || default_front_door
+    @door = args[:door]
   end
 
   def default_position
@@ -40,6 +39,15 @@ class Compartment
         3
       ]
     }
+  end
+end
+
+class Door
+
+  attr_reader :back_door, :front_door
+  def initialize(args={})
+    @back_door = args[:back_door] || default_back_door
+    @front_door = args[:front_door] || default_front_door
   end
 
   def default_back_door
@@ -73,7 +81,9 @@ class Compartment
 end
 
 compartment = Compartment.new(
-  position_number: 10)
+  position_number: 10,
+  door: Door.new)
+p compartment
 position = compartment.position_number
-p compartment.open_door(position)
-p compartment.close_door(position)
+p compartment.door.open_door(position)
+p compartment.door.close_door(position)
