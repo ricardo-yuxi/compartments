@@ -1,53 +1,44 @@
-require_relative 'data_source'
+require 'awesome_print'
+require_relative 'door'
 
 class Compartment
-  DATA = {position_number: 10, sensor: 116542, leds: 126522}
 
-  attr_reader :data
-  def initialize
-    @data = DATA
+  attr_reader :position_number, :sensors, :indicators, :door
+  def initialize(args={})
+    @position_number = args[:position_number] || default_position
+    @sensors = args[:sensor] || default_sensors
+    @indicators = args[:indicators] || default_indicators
+    @door = args[:door]
   end
 
-  def to_s
-    "#{@data}"
+  def default_position
+    10
+  end
+
+  def default_sensors
+    {
+      analog: {
+        type: "floor_sensor",
+        identifier: 116542,
+        positions: [0]
+      },
+      digital: {
+        type: "door_sensor",
+        identifier: 116542,
+        positions: [
+          4
+        ]
+      }
+    }
+  end
+
+  def default_indicators
+    {
+      type: "led",
+      identifier: 116542,
+      positions: [
+        3
+      ]
+    }
   end
 end
-
-puts Compartment.new
-
-#module Compartment
-
-  #def open_door
-    #puts "Open door!"
-  #end
-
-  #def close_door
-    #puts "Close door!"
-  #end
-#end
-
-#class StandardCompartment
-  #include Compartment
-
-  #attr_accessor :serial, :position_number, :sensor, :leds
-  #def initialize()
-  #end
-#end
-
-#class GarageCompartment
-  #include Compartment
-#end
-
-#class GearCompartment
-  #include Compartment
-#end
-
-#class HelixCompartment
-  #include Compartment
-#end
-
-
-#sc = StandardCompartment.new
-#sc.open_door
-
-#puts StandardCompartment.ancestors.inspect

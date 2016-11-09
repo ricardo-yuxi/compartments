@@ -1,6 +1,11 @@
-require 'ap'
-require_relative 'data_source'
+require 'awesome_print'
+require_relative 'compartment'
+require_relative 'door'
 
-ds = DS.new(:position_number => 10, :sensor => 116542, :leds=> 126522)
-
-ap ds
+compartment = Compartment.new(
+  position_number: 10,
+  door: Door.new)
+p compartment
+position = compartment.position_number
+p compartment.door.open_door(position)
+p compartment.door.close_door(position)
